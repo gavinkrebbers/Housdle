@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react";
-import wordsList from "./words.json";
-function Test() {
-  const [randomWord, setRandomWord] = useState("");
+import Cookies from "js-cookie";
+import { useState } from "react";
 
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * wordsList.length);
-    setRandomWord(wordsList[randomIndex]);
-  }, []);
+export default function Test() {
+  const [cookie, setCookie] = useState();
+  const saveCookie = () => {
+    Cookies.set("userToken", "test", { expires: 7 });
+  };
+
+  const loadCookie = () => {
+    setCookie(Cookies.get("userToken"));
+    const test = Cookies.get("userToken");
+    console.log(test);
+  };
 
   return (
     <>
-      <p>this is a test</p>
-      <p>{randomWord}</p>
+      <p>test</p>
+      <button onClick={saveCookie}>save cookie</button>
+      <button onClick={loadCookie}>load cookie</button>
     </>
   );
 }
-
-export default Test;
